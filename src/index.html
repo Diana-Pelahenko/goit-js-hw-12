@@ -2,22 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>12HW</title>
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <load src="./partials/header.html" icon-path="img/sprite.svg#logo" />
+    <div class="container">
+      <!-- Форма пошуку -->
+      <form action="submit">
+        <input type="text" class="search-input" name="choiceSearch" />
+        <button class="btn">Search</button>
+      </form>
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <load src="./partials/vite-promo.html" />
-      <load src="./partials/badges.html" />
-    </main>
+      <!-- Ідентифікатор завантаження -->
+      <span class="loader" style="display: none"></span>
 
-    <load src="./partials/footer.html" />
-
+      <!-- Результат пошуку -->
+      <ul class="gallery-list"></ul>
+      <button class="load-more-btn-js is-hidden" type="button">
+        Load more
+      </button>
+    </div>
     <script type="module" src="./main.js"></script>
   </body>
 </html>
