@@ -1,43 +1,55 @@
-export function renderMarkup(arr, galleryEl) {
-  const markup = arr
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const galleryEl = document.querySelector('.gallery');
+const loaderEl = document.querySelector('.loader');
+const loaderTextEl = document.querySelector('.loader-text');
+
+let lightbox = new SimpleLightbox('.gallery a');
+
+export function createGallery(images) {
+  const markup = images
     .map(
-      ({
-        webformatURL,
-        largeImageURL,
-        tags,
-        likes,
-        views,
-        comments,
-        downloads,
-      }) => {
-        return `
-            <li class="gallery-list-item">
-                <a class="gallery_link" href="${largeImageURL}">
-                    <img class="gallery_img" src="${webformatURL}" 
-                        alt="${tags}" 
-                        title="${tags}" />
-                    <ul class="statistics-list">
-                        <li class="statistics-item">
-                            <p class="statistics-item_name">Likes</p>
-                            <p class="statistics_result">${likes}</p>
-                        </li>
-                        <li class="statistics-item">
-                            <p class="statistics-item_name">Views</p>
-                            <p class="statistics_result">${views}</p>
-                        </li>
-                        <li class="statistics-item">
-                            <p class="statistics-item_name">Comments</p>
-                            <p class="statistics_result">${comments}</p>
-                        </li>
-                        <li class="statistics-item">
-                            <p class="statistics-item_name">Downloads</p>
-                            <p class="statistics_result">${downloads}</p>
-                        </li>
-                    </ul>
-                </a>
-            </li>`;
-      }
+      img => `
+      <li>
+        <a href="${img.largeImageURL}">
+          <img src="${img.webformatURL}" alt="${img.tags}" />
+        </a>
+        <div>
+          <p>Likes: ${img.likes}</p>
+          <p>Views: ${img.views}</p>
+          <p>Comments: ${img.comments}</p>
+          <p>Downloads: ${img.downloads}</p>
+        </div>
+      </li>
+    `
     )
     .join('');
+
   galleryEl.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
+}
+
+export function clearGallery() {
+  galleryEl.innerHTML = '';
+}
+
+export function showLoader() {
+  loaderEl.classList.remove('hidden');
+  loaderTextEl.classList.remove('hidden');
+}
+
+export function hideLoader() {
+  loaderEl.classList.add('hidden');
+  loaderTextEl.classList.add('hidden');
+}
+
+const loadMoreBtn = document.querySelector('.load-more');
+
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.remove('hidden');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.add('hidden');
 }
